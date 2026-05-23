@@ -12,14 +12,49 @@ const fadeIn = {
 
 export default function ContactPage() {
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    location: "",
+    waterSource: "Borewell Water",
+    message: ""
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("submitting");
-    // Simulate API call
-    setTimeout(() => {
-      setFormStatus("success");
-    }, 1500);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      
+      const data = await res.json();
+      if (data.success) {
+        setFormStatus("success");
+        setFormData({
+          name: "",
+          phone: "",
+          location: "",
+          waterSource: "Borewell Water",
+          message: ""
+        });
+      } else {
+        alert(data.message || "Failed to submit form. Please try again.");
+        setFormStatus("idle");
+      }
+    } catch (err) {
+      console.error("Form submit error:", err);
+      alert("An error occurred. Please try again later.");
+      setFormStatus("idle");
+    }
   };
 
   return (
@@ -60,22 +95,22 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-black text-foreground/40 uppercase tracking-widest ml-4">Full Name</label>
-                  <input required type="text" placeholder="John Doe" className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold" />
+                  <input required name="name" value={formData.name} onChange={handleChange} type="text" placeholder="John Doe" className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold text-foreground" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-black text-foreground/40 uppercase tracking-widest ml-4">Phone Number</label>
-                  <input required type="tel" placeholder="84286 65293" className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold" />
+                  <input required name="phone" value={formData.phone} onChange={handleChange} type="tel" placeholder="84286 65293" className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold text-foreground" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-black text-foreground/40 uppercase tracking-widest ml-4">Area / Location</label>
-                  <input required type="text" placeholder="e.g. Thirumullaivoyal" className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold" />
+                  <input required name="location" value={formData.location} onChange={handleChange} type="text" placeholder="e.g. Thirumullaivoyal" className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold text-foreground" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-black text-foreground/40 uppercase tracking-widest ml-4">Water Source</label>
-                  <select className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all font-bold">
+                  <select name="waterSource" value={formData.waterSource} onChange={handleChange} className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all font-bold text-foreground">
                     <option>Borewell Water</option>
                     <option>Corporation Water</option>
                     <option>Mixed Water</option>
@@ -86,7 +121,7 @@ export default function ContactPage() {
 
               <div className="space-y-2">
                 <label className="text-xs font-black text-foreground/40 uppercase tracking-widest ml-4">Requirement / Message</label>
-                <textarea rows={4} placeholder="Tell us about your water issue..." className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold"></textarea>
+                <textarea required name="message" value={formData.message} onChange={handleChange} rows={4} placeholder="Tell us about your water issue..." className="w-full px-6 py-4 rounded-2xl bg-white/40 border border-primary/10 focus:border-primary focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-foreground/30 font-bold text-foreground"></textarea>
               </div>
 
               <button 
