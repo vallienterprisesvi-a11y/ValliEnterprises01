@@ -102,7 +102,7 @@ export default function Home() {
               variants={fadeIn}
               className="text-xl text-foreground/60 leading-relaxed max-w-lg"
             >
-              Mineral-rich Water that protects your family's future in every drop. Reliable service since 2012.
+              Mineral-rich Water that protects your family's future in every drop. Reliable service Since 2021.
             </motion.p>
             
             <motion.div variants={fadeIn} className="flex flex-wrap gap-6 pt-4">

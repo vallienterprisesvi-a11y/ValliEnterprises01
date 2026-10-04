@@ -174,7 +174,7 @@ function ProductContent() {
             </div>
             <h2 className="text-4xl lg:text-5xl font-black text-foreground tracking-tighter">Ready to Solve Your Water Issues?</h2>
             <p className="text-2xl font-bold text-foreground/60 max-w-3xl mx-auto italic">
-              "Providing honest technical guidance and genuine spare parts since 2012 for Chennai's homes and industries."
+              "Providing honest technical guidance and genuine spare parts Since 2021 for Chennai's homes and industries."
             </p>
             <div className="flex justify-center flex-wrap gap-12 pt-12">
                <div className="flex items-center gap-3">

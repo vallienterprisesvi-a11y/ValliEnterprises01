@@ -58,7 +58,7 @@ export default function AboutPage() {
          </motion.div>
 
          <div className="space-y-10">
-            <h2 className="text-4xl md:text-6xl font-black text-foreground tracking-tighter leading-tight">Since 2012, <span className="text-gradient">Integrity</span> is our Filter.</h2>
+            <h2 className="text-4xl md:text-6xl font-black text-foreground tracking-tighter leading-tight">Since 2021, <span className="text-gradient">Integrity</span> is our Filter.</h2>
             <div className="space-y-6 text-foreground/70 text-lg leading-relaxed font-medium">
                <p>
                   Valli Enterprises was founded with a single mission: to provide the people of Chennai with water solutions they can actually trust. In an industry often clouded by vague promises, we stand for technical clarity.

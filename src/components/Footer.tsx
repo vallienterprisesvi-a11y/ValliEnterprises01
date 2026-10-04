@@ -29,7 +29,7 @@ export default function Footer() {
             </div>
           </Link>
           <p className="text-foreground/60 leading-relaxed font-bold italic text-sm">
-            "Serving Chennai's homes and industries with pure technical honesty since 2012."
+            "Serving Chennai's homes and industries with pure technical honesty Since 2021."
           </p>
           <div className="flex gap-4">
             <a href="#" className="h-12 w-12 rounded-2xl bg-white/50 text-foreground/50 hover:bg-primary hover:text-white transition-all flex items-center justify-center shadow-lg"><Facebook className="h-5 w-5" /></a>
